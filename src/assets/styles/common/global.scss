@@ -1,0 +1,120 @@
+@use '@/assets/styles/common/_theme-color.scss' as *;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  position: relative;
+
+}
+
+#app {
+  height: 100%;
+  position: relative;
+}
+
+/* 清除所有 <a> 标签默认样式 */
+a {
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+
+  @include theme {
+    color: inherit;
+    background-color: transparent;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+textarea,
+button {
+  /* 清除内外边距 */
+  margin: 0;
+  padding: 0;
+
+  /* 清除边框和轮廓线 */
+  border: none;
+  outline: none;
+
+  /* 清除背景色 */
+  @include theme {
+    background: none;
+  }
+
+  /* 清除默认字体样式 */
+  font-family: inherit;
+  font-size: inherit;
+
+  @include theme {
+    color: inherit;
+  }
+
+  /* 清除其他默认样式 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* 清除圆角（如果需要） */
+  border-radius: 0;
+}
+
+button,
+a,
+li {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  border-radius: 5px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  @include theme {
+    background-color: color(c-g0);
+  }
+}
+
+::-webkit-scrollbar-track {
+  @include theme {
+    background-color: color(c-g0);
+  }
+}
+
+::-webkit-scrollbar-track-piece {
+  -webkit-border-radius: 6px;
+
+  @include theme {
+    background-color: transparent;
+  }
+}
+
+::-webkit-scrollbar-thumb:vertical,
+::-webkit-scrollbar-thumb:horizontal {
+  -webkit-border-radius: 6px;
+
+  @include theme {
+    background-color: color(c-g2);
+  }
+}
+
+/* 设置滚动条在hover状态下的样式 */
+::-webkit-scrollbar-thumb:hover {
+  @include theme {
+    background-color: color(c-p-lightest);
+  }
+}
