@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import '@/assets/styles/common/global.scss'
+import 'swiper/css'
+import 'swiper/css/effect-cube'
 
 Vue.config.productionTip = false
 

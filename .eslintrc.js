@@ -1,15 +1,15 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    node: true
   },
   extends: [
-    "plugin:vue/essential",
-    "eslint:recommended",
-    "plugin:prettier/recommended",
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'plugin:prettier/recommended'
   ],
   parserOptions: {
-    parser: "@babel/eslint-parser",
+    parser: '@babel/eslint-parser'
   },
   rules: {
     'prettier/prettier': [
@@ -22,9 +22,9 @@ module.exports = {
         endOfLine: 'auto' // 换行符号不限制（win mac 不一致）
       }
     ],
-    'vue/multi-word-component-names': "off",
+    'vue/multi-word-component-names': 'off',
     'vue/no-setup-props-destructure': ['off'], // 关闭 props 解构的校验
     // 添加未定义变量错误提示
     'no-undef': 'error'
   }
-};
+}

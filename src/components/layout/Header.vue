@@ -21,19 +21,20 @@
       <div class="left_nav">
         <ul>
           <li v-for="(item, index) in navItems" :key="index">
-            <router-link :to="item.route">
-              {{ item.name }}
-            </router-link>
+            <a href="javascript:;" @click="handleNavClick(item.anchor)">{{ item.name }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="header_right">
+      <div class="tool_collect">
+        <button>工具收藏</button>
+      </div>
       <div class="right_user">
-        <div class="user_name">张三</div>
         <div class="user_avatar">
           <img src="@/assets/avatar.png" alt="" />
         </div>
+        <div class="user_name">张三</div>
       </div>
     </div>
   </div>
@@ -49,14 +50,45 @@ export default {
         {
           icon: '',
           name: '软件工具',
-          route: ''
+          route: '',
+          anchor: 'tools'
         },
         {
           icon: '',
           name: '教育视频',
-          route: ''
+          route: '',
+          anchor: 'videos'
         }
       ]
+    }
+  },
+  methods: {
+    handleNavClick(anchor) {
+      const el = document.getElementById(anchor)
+      if (!el) return
+      const header = document.querySelector('header')
+      const offset = header ? header.getBoundingClientRect().height : 0
+      const to = el.getBoundingClientRect().top + window.pageYOffset - offset - 10
+      this.smoothScrollTo(to, 450)
+    },
+    smoothScrollTo(to, duration = 450) {
+      const start = window.pageYOffset
+      const distance = to - start
+      const startTime = performance.now()
+
+      const easeInOutCubic = (t) => {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      }
+
+      const step = (now) => {
+        const elapsed = now - startTime
+        const progress = Math.min(1, elapsed / duration)
+        const eased = easeInOutCubic(progress)
+        window.scrollTo(0, start + distance * eased)
+        if (progress < 1) requestAnimationFrame(step)
+      }
+
+      requestAnimationFrame(step)
     }
   }
 }
@@ -112,12 +144,57 @@ export default {
     ul {
       @include flex;
       gap: 40px;
+      font-size: 14px;
+
+      a {
+        text-decoration: none;
+        @include theme {
+          color: color(c-g9, 0.75);
+        }
+        transition: 0.18s;
+
+        &:hover {
+          @include theme {
+            color: color(c-p-light);
+          }
+        }
+      }
     }
   }
 }
 
 .header_right {
   @include flex(c, c);
+  gap: 14px;
+
+  .tool_collect {
+    button {
+      padding: 6px 14px;
+      font-size: 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.18s;
+
+      @include theme {
+        background-color: color(c-p-light, 0.12);
+        color: color(c-p-light);
+        border-color: color(c-p-light, 0.35);
+      }
+
+      &:hover {
+        @include theme {
+          background-color: color(c-p-light, 0.18);
+          border-color: color(c-p-light, 0.5);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
   .right_user {
     @include flex(c, c);
     gap: 10px;
@@ -126,6 +203,7 @@ export default {
   .user_name {
     font-size: 14px;
   }
+
   .user_avatar {
     @include wh(36);
     img {
